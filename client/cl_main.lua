@@ -22,6 +22,16 @@ local class = {
     [20] = Lang:t('info.class.truck'),
 }
 
+local function IsPhoneActive()
+	local retval
+	if Config.GKSPhone then
+		retval = exports["gksphone"]:CheckOpenPhone()
+	else
+		retval = exports["qb-phone"]:IsPhoneOpen()
+	end
+	return retval
+end
+
 local function vehicleData(vehicle)
 	local vData = {
 		name = GetLabelText(GetDisplayNameFromVehicleModel(GetEntityModel(vehicle))),
@@ -48,7 +58,7 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     PlayerJob = PlayerData.job
 end)
 
-RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
+RegisterNetEvent('QBCore:Client:OnJobUpdate', function()
     local PlayerData = QBCore.Functions.GetPlayerData()
     PlayerJob = PlayerData.job
 end)
@@ -109,7 +119,7 @@ end)
 RegisterCommand('+platescan', function()
 	if PlayerJob.name ~= "police" then return end
 	if not IsPedInAnyPoliceVehicle(PlayerPedId()) then return end
-	if exports["qb-phone"]:IsPhoneOpen() or IsPauseMenuActive() or IsAimCamActive() then return end
+	if IsPhoneActive() or IsPauseMenuActive() or IsAimCamActive() then return end
 	local data, vData, vehicle = exports["wk_wars2x"]:GetFrontPlate(), {}
 	if data.veh ~= nil and data.veh ~= 0 then
 		lastVeh = data.veh

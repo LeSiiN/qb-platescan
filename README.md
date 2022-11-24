@@ -14,12 +14,12 @@ This script allows officers to quickly scan plates while patroling. Scanning att
 1. Download source files from github
 2. Drag into resources folder
 3. Replace `cl_plate_reader.lua` in wk_wars2x
-4. Add export to qb-phone for disabling scanning spam
+4. If using qb-phone, add export to disable scanning spam
 5. Add event to vehicle keys script *(Optional)*
 
 ## Add phone export:
 
-- **Add this export to *qb-phone/client/main.lua*** 
+- **Add this to *qb-phone/client/main.lua*** 
 ```lua
 local function IsPhoneOpen()
     return PhoneData.isOpen
