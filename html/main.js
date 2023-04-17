@@ -28,7 +28,7 @@ $('document').ready(function() {
                 var right = data.info.info.search("\\]");
                 var reasons = data.info.flagReason
 
-                data.info.info = '<span id="descbanner">' + data.info.info.substring(1, right) + '</span>'
+                data.info.info = data.info.plateColor + '>' + data.info.info.substring(1, right) + '</span>'
 
                 $.each(reasons, function(i, reason){
                     if (data.info.infoCode !== undefined) {

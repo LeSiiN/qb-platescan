@@ -84,7 +84,14 @@ end)
 RegisterNetEvent("qb-platescan:client:ScanPlate", function(vData, locked)
 	local pData, scanStatus, plateStatus
 	local flagReason = {}
+	local plateColor = '<span id=descbanner-white'
+	local plateIndex = GetVehicleNumberPlateTextIndex(vData.veh)
 	if Config.Debug then print(json.encode(vData)) end
+	if plateIndex == 2 then 
+		plateColor = '<span id=descbanner-blue'
+	elseif plateIndex == 1 then
+		plateColor = '<span id=descbanner-black'
+	end
 	if vData.warrant or vData.stolen or vData.bolo then
 		scanStatus = "bad"
 		plateStatus = Lang:t('info.status.flagged')
@@ -107,6 +114,7 @@ RegisterNetEvent("qb-platescan:client:ScanPlate", function(vData, locked)
 		info3 = vData.name..", "..vData.class,
 		plateStatus = plateStatus,
 		flagReason = flagReason,
+		plateColor = plateColor,
 	}
 	SendNUIMessage({
 		action = 'display',
